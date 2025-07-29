@@ -1,14 +1,13 @@
 {
+    // See http://go.microsoft.com/fwlink/?LinkId=827846
+    // for the documentation about the extensions.json format
     "recommendations": [
-        //Java Development
-        "vscjava.vscode-java-pack",
-        //ESP32 Development
+        "eamodio.gitlens",
         "ms-vscode.cpptools",
         "platformio.platformio-ide",
-        //Miscellaneous
         "visualstudioexptteam.intellicode-api-usage-examples",
         "visualstudioexptteam.vscodeintellicode",
-        "eamodio.gitlens"
+        "vscjava.vscode-java-pack"
     ],
     "unwantedRecommendations": [
         "ms-vscode.cpptools-extension-pack"
