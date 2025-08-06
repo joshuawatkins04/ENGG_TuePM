@@ -1,3 +1,19 @@
+# Project Setup
+
+## Pre-reqs
+
+- Node.js version >= 18.0.0
+
+## Steps to run frontend app
+
+1. Make sure to 'git pull' the latest version of the project first.
+
+2. Open Powershell or console and navigate to the ENGG_TUEPM/frontend/ directory
+
+3. Type 'npm install' and it should start installing modules into /node_modules
+
+4. Once complete, do 'npm run dev' in the console. This should start up the local dev server
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
