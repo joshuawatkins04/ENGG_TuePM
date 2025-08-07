@@ -8,6 +8,7 @@ package com.enggteam.bridgebackend;
 import com.sun.net.httpserver.HttpServer;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
+import com.google.gson.JsonObject;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -16,7 +17,7 @@ import java.net.InetSocketAddress;
 public class App {
     public static void main(String[] args) throws IOException {
         HttpServer server = HttpServer.create(new InetSocketAddress(9002), 0);
-        server.createContext("/", new MyHandler());
+        server.createContext("/api/status", new MyHandler());
         server.setExecutor(null);
         server.start();
         System.out.println("Server started at http://localhost:9002");
@@ -27,7 +28,12 @@ public class App {
         public void handle(HttpExchange exchange) throws IOException {
             exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "*");
 
-            String response = "STATE: RUNNING";
+            JsonObject status = new JsonObject();
+            status.addProperty("backend", "CONNECTED");
+            status.addProperty("esp", "CONNECTED");
+            status.addProperty("bridge", "IDLE");
+
+            String response = status.toString();
             exchange.sendResponseHeaders(200, response.length());
 
             try (OutputStream os = exchange.getResponseBody()) {
