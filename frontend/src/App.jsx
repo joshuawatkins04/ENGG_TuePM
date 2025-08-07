@@ -1,50 +1,14 @@
 import { useState } from "react";
-import CustomButton from "./components/CustomButton";
 import Divider from "./components/Divider";
-import StatusSection from "./components/StatusSection";
+import StatusControls from "./components/StatusControls";
 import CarTrafficSection from "./components/CarTrafficSection";
 import BoatTrafficSection from "./components/BoatTrafficSection";
-
-const BackendStatus = {
-  CONNECTED: "CONNECTED",
-  CONNECTING: "CONNECTING",
-  DISCONNECTED: "DISCONNECTED",
-};
+import BridgeControls from "./components/BridgeControls";
 
 function App() {
-  const [backendLoading, setBackendLoading] = useState(false);
-  const [backendStatus, setBackendStatus] = useState(() => {
-    return sessionStorage.getItem("backend-status") || BackendStatus.DISCONNECTED;
+  const [bridgeStatus, setBridgeStatus] = useState(() => {
+    return sessionStorage.getItem("bridge-status") || "DISCONNECTED";
   });
-
-  const handleConnectToBackend = async () => {
-    setBackendLoading(true);
-    setBackendStatus(BackendStatus.CONNECTING);
-    sessionStorage.setItem("backend-status", BackendStatus.CONNECTING);
-
-    try {
-      const result = await fetch("http://localhost:9002");
-      const data = await result.text();
-
-      let state = null;
-
-      if (data.startsWith("STATE:")) {
-        state = data.split("STATE:")[1].trim();
-        console.log(state);
-
-        if (state === "RUNNING") {
-          setBackendStatus(BackendStatus.CONNECTED);
-          sessionStorage.setItem("backend-status", BackendStatus.CONNECTED);
-        }
-      }
-    } catch (error) {
-      console.error("Connection error:", error);
-      setBackendStatus(BackendStatus.DISCONNECTED);
-      sessionStorage.setItem("backend-status", BackendStatus.DISCONNECTED);
-    } finally {
-      setBackendLoading(false);
-    }
-  };
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center mx-2">
@@ -53,29 +17,11 @@ function App() {
 
         <Divider />
 
-        <StatusSection backendStatus={backendStatus} />
+        <StatusControls setBridgeStatus={setBridgeStatus} />
 
         <Divider />
 
-        <div className="flex flex-col justify-center items-center">
-          <h2 className="text-lg font-bold mb-2">Connect Controls</h2>
-
-          <div className="flex items-center justify-center gap-2">
-            <CustomButton text={"ESP"} />
-            <CustomButton text={"Backend"} onClick={handleConnectToBackend} loading={backendLoading} />
-          </div>
-        </div>
-
-        <Divider />
-
-        <div className="flex flex-col justify-center items-center">
-          <h2 className="text-lg font-bold mb-2">Bridge Controls</h2>
-
-          <div className="flex items-center justify-center gap-2">
-            <CustomButton text={"Open"} />
-            <CustomButton text={"Close"} />
-          </div>
-        </div>
+        <BridgeControls bridgeStatus={bridgeStatus} />
 
         <Divider />
 

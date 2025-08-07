@@ -4,7 +4,7 @@ import CustomButton from "./CustomButton";
 function BoatTrafficSection({ title }) {
   const [activeLight, setActiveLight] = useState("red");
 
-  const lights = ["red", "green"];
+  const lights = ["green", "red"];
 
   const activeColours = {
     red: "bg-red-600",

@@ -4,7 +4,7 @@ import CustomButton from "./CustomButton";
 function CarTrafficSection({ title }) {
   const [activeLight, setActiveLight] = useState("red");
 
-  const lights = ["red", "yellow", "green"];
+  const lights = ["green", "yellow", "red"];
 
   const activeColours = {
     red: "bg-red-600",
