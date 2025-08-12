@@ -43,7 +43,6 @@ struct StateTransition {
     BridgeState currentState;
     BridgeEvent event;
     BridgeState nextState;
-    void (BridgeStateMachine::*action)();
 };
 
 class BridgeStateMachine {
